@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosso Amor 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #fff0f5, #ffe4ec);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    h1 {
+      color: #d63384;
+      font-size: 2.5em;
+    }
+    .gallery, #extraPhotos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 30px;
+    }
+    .photo {
+      position: relative;
+      width: 250px;
+    }
+    .photo img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .download-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .upload-section {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 1000px;
+    }
+    input[type="file"] {
+      padding: 10px;
+    }
+    .timer {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #555;
+    }
+    .story {
+      max-width: 800px;
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2em;
+      background: #fff5f9;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      color: #c71585;
+      line-height: 1.8;
+    }
+    .controls {
+      margin-top: 15px;
+    }
+    .controls button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+  
+
+  <h1>Nosso Amor 💖</h1>
+  <div class="timer" id="timer"></div>
+
+  <div class="story">
+    Desde o dia em que nos conversamos pela primeira vez, em 13 de dezembro de 2024, nossas vidas mudaram para sempre. Passamos por risos, aventuras, dificuldades, aprendizados e muito amor. Cada momento juntos fortalece ainda mais o que sentimos um pelo outro, e cada foto aqui conta um pedacinho dessa linda jornada que estamos construindo. Que venham muitos mais capítulos da nossa história! 💑
+
+    <p style="font-size: 2em; color: #ff1493; margin-top: 20px; margin-bottom: 0;">
+      EU TE AMO ❤️
+    </p>
+    
+  </div>
+
+  <div class="controls">
+    <button onclick="toggleMusic()">🔇 Silenciar / Ativar Música</button>
+  </div>
+
+  <div class="gallery" id="photoGallery">
+    <div class="photo">
+      <img src="chiques.jpg" alt="Foto 1">
+      <a class="download-btn" href="chiques.jpg" download>Baixar</a>
+    </div>
+    <div class="photo">
+      <img src="kiss.jpg" alt="Foto 2">
+      <a class="download-btn" href="kiss.jpg" download>Baixar</a>
+    </div>
+    <div class="photo">
+      <img src="love.jpg" alt="Foto 3">
+      <a class="download-btn" href="love.jpg" download>Baixar</a>
+    </div>
+    <div class="photo">
+      <img src="espontaneos.jpg" alt="Foto 4">
+      <a class="download-btn" href="espontaneos.jpg" download>Baixar</a>
+    </div>
+  </div>
+
+  <div class="upload-section">
+    <h2>Adicione mais fotos 💌</h2>
+    <input type="file" multiple accept="image/*" onchange="handleUpload(event)" />
+  </div>
+
+  <script>
+    const startDate = new Date("2024-12-13T00:00:00");
+    const timerElement = document.getElementById("timer");
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      timerElement.textContent = `Juntos há ${days} dias, ${hours}h ${minutes}m ${seconds}s 💞`;
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    function handleUpload(event) {
+      const files = event.target.files;
+      const container = document.getElementById("photoGallery");
+      for (const file of files) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const div = document.createElement("div");
+          div.classList.add("photo");
+          div.innerHTML = `
+            <img src="${e.target.result}" alt="Nova Foto">
+            <a class="download-btn" href="${e.target.result}" download="nova-foto.jpg">Baixar</a>
+          `;
+          container.appendChild(div);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      music.muted = !music.muted;
+    }
+  </script>
+</body>
+</html>
